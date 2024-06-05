@@ -68,6 +68,28 @@ resource "aws_nat_gateway" "ngw20" {
  subnet_id = aws_subnet.sn_pub_az1a_vpc20.id
 }
 
+//ASSOCIATE ROUTE TABLES
+
+resource "aws_route_table_association" "rta_sn_pub_az1a_vpc10" {
+    subnet_id      = aws_subnet.sn_pub_az1a_vpc10.id
+    route_table_id = aws_route_table.rt_sn_pub_az1a_vpc10.id
+}
+
+resource "aws_route_table_association" "rta_sn_pub_az1a_vpc20" {
+    subnet_id      = aws_subnet.sn_pub_az1a_vpc20.id
+    route_table_id = aws_route_table.rt_sn_pub_az1a_vpc20.id
+}
+
+resource "aws_route_table_association" "rta_sn_priv_az1c_vpc10" {
+    subnet_id         = aws_subnet.sn_priv_az1c_vpc10.id
+    route_table_id    = aws_route_table.rt_sn_priv_az1c_vpc10.id   
+}
+
+resource "aws_route_table_association" "rta_sn_priv_az1c_vpc20" {
+    subnet_id         = aws_subnet.sn_priv_az1c_vpc20.id
+    route_table_id    = aws_route_table.rt_sn_priv_az1c_vpc20.id
+}
+
 # RESOURCE: ROUTE TABLES FOR THE SUBNETS
 
 resource "aws_route_table" "rt_sn_pub_az1a_vpc10" {

@@ -18,13 +18,13 @@ resource "aws_security_group" "vpc_sg_pub1" {
     ingress {
         from_port   = "22"
         to_port     = "22"
-        protocol    = "ssh"
+        protocol    = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
     ingress {
         from_port   = "80"
         to_port     = "80"
-        protocol    = "http"
+        protocol    = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
 }
@@ -48,13 +48,13 @@ resource "aws_security_group" "vpc_sg_pub2" {
     ingress {
         from_port   = "22"
         to_port     = "22"
-        protocol    = "ssh"
+        protocol    = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
     ingress {
         from_port   = "80"
         to_port     = "80"
-        protocol    = "http"
+        protocol    = "tcp"
         cidr_blocks = ["0.0.0.0/0"]
     }
 }
@@ -155,7 +155,7 @@ resource "aws_instance" "node_a" {
   subnet_id              = var.vpc10_sn_pub_az1a_id
   vpc_security_group_ids = [aws_security_group.vpc_sg_pub1.id]
   key_name               = "vockey"
-  user_data              = base64encode(data.template_file.nagios-core.rendered)
+  user_data              = base64encode(data.template_file.nagios-agent.rendered)
   tags = {
     Name = "agent-node-a"
   }
@@ -183,7 +183,7 @@ resource "aws_instance" "node_b" {
   subnet_id              = var.vpc20_sn_pub_az1a_id
   vpc_security_group_ids = [aws_security_group.vpc_sg_pub2.id]
   key_name               = "vockey"
-  user_data              = base64encode(data.template_file.nagios-core.rendered)
+  user_data              = base64encode(data.template_file.nagios-agent.rendered)
   tags = {
     Name = "agent-node-b"
   }
@@ -197,7 +197,7 @@ resource "aws_instance" "node_wim" {
   subnet_id              = var.vpc20_sn_pub_az1a_id
   vpc_security_group_ids = [aws_security_group.vpc_sg_pub2.id]
   key_name               = "vockey"
-  user_data              = base64encode(data.template_file.nagios-core.rendered)
+  user_data              = base64encode(data.template_file.nagios-agent.rendered)
   tags = {
     Name = "agent-node-wim"
   }
